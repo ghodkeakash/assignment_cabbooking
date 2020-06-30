@@ -1,0 +1,35 @@
+schema {
+ query: Query
+}
+
+type Query {
+ bookingHistory(userMobileNumber: String): [BookingHistory]
+ driverDetails(userMobileNumber: String, lattitude: String, longitude: String): DriverDetails
+ }
+
+type BookingHistory {
+  userMobileNumber: String
+  driverMobileNumber: String
+  startPoint: String
+  dropPoint: String
+  startLat: String
+  startLong: String
+  endLat: String
+  endLong: String
+  pickupTime: String
+  dropTime: String
+  driverName: String
+}
+
+type DriverDetails {
+  mobileNumber: String
+  carManufacture: String
+  name: String
+  carName: String
+  carNumberPlate: String
+  currentLattitude: String
+  currentLongitude: String
+  distanceInKm: String  
+}
+
+

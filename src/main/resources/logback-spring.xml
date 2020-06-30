@@ -1,0 +1,106 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<configuration>
+	<springProperty scope="context" name="LOG_PATH"
+		source="LOG_PATH" defaultValue="C:/UNILEVER_WORK/assignment/logs" />
+
+	<springProfile name="local,dev">
+		<appender name="accessLogFileAppender4Dev"
+			class="ch.qos.logback.core.rolling.RollingFileAppender">
+			<file>${LOG_PATH}/cabbooking.log</file>
+			<rollingPolicy
+				class="ch.qos.logback.core.rolling.TimeBasedRollingPolicy">
+				<fileNamePattern>${LOG_PATH}/${logFileName}.%d{yyyy-MM-dd}.%i.log
+				</fileNamePattern>
+				<timeBasedFileNamingAndTriggeringPolicy
+					class="ch.qos.logback.core.rolling.SizeAndTimeBasedFNATP">
+					<maxFileSize>5MB</maxFileSize>
+				</timeBasedFileNamingAndTriggeringPolicy>
+			</rollingPolicy>
+			<encoder>
+				<Pattern>[%-5level] %d{yyyy-MM-dd HH:mm:ss.SSS} [%t] %c{1} - %msg%n
+				</Pattern>
+			</encoder>
+			<filter class="ch.qos.logback.classic.filter.LevelFilter">
+				<level>DEBUG</level>
+				<onMatch>DENY</onMatch>
+			</filter>
+			<filter class="ch.qos.logback.classic.filter.LevelFilter">
+				<level>INFO</level>
+				<onMatch>ACCEPT</onMatch>
+			</filter>
+			<filter class="ch.qos.logback.classic.filter.LevelFilter">
+				<level>TRACE</level>
+				<onMatch>DENY</onMatch>
+			</filter>
+			<filter class="ch.qos.logback.classic.filter.LevelFilter">
+				<level>WARN</level>
+				<onMatch>DENY</onMatch>
+			</filter>
+			<filter class="ch.qos.logback.classic.filter.LevelFilter">
+				<level>ERROR</level>
+				<onMatch>ACCEPT</onMatch>
+			</filter>
+		</appender>
+
+		<appender name="Async-accessLogFileAppender4Dev"
+			class="ch.qos.logback.classic.AsyncAppender">
+			<appender-ref ref="accessLogFileAppender4Dev" />
+		</appender>
+	</springProfile>
+
+	<springProfile name="test,prod,stage">
+		<appender name="accessLogFileAppender4TestAndProd"
+			class="ch.qos.logback.core.rolling.RollingFileAppender">
+			<file>${LOG_PATH}/shikhardashboard.log</file>
+			<rollingPolicy
+				class="ch.qos.logback.core.rolling.TimeBasedRollingPolicy">
+				<fileNamePattern>${LOG_PATH}/${logFileName}.%d{yyyy-MM-dd}.%i.log
+				</fileNamePattern>
+				<timeBasedFileNamingAndTriggeringPolicy
+					class="ch.qos.logback.core.rolling.SizeAndTimeBasedFNATP">
+					<maxFileSize>5MB</maxFileSize>
+				</timeBasedFileNamingAndTriggeringPolicy>
+			</rollingPolicy>
+			<encoder>
+				<Pattern>[%-5level] %d{yyyy-MM-dd HH:mm:ss.SSS} [%t] %c{1} - %msg%n
+				</Pattern>
+			</encoder>
+			<filter class="ch.qos.logback.classic.filter.LevelFilter">
+				<level>DEBUG</level>
+				<onMatch>DENY</onMatch>
+			</filter>
+			<filter class="ch.qos.logback.classic.filter.LevelFilter">
+				<level>INFO</level>
+				<onMatch>ACCEPT</onMatch>
+			</filter>
+			<filter class="ch.qos.logback.classic.filter.LevelFilter">
+				<level>TRACE</level>
+				<onMatch>DENY</onMatch>
+			</filter>
+			<filter class="ch.qos.logback.classic.filter.LevelFilter">
+				<level>WARN</level>
+				<onMatch>DENY</onMatch>
+			</filter>
+			<filter class="ch.qos.logback.classic.filter.LevelFilter">
+				<level>ERROR</level>
+				<onMatch>ACCEPT</onMatch>
+			</filter>
+		</appender>
+		<appender name="Async-accessLogFileAppender4TestAndProd"
+			class="ch.qos.logback.classic.AsyncAppender">
+			<appender-ref ref="accessLogFileAppender4TestAndProd" />
+		</appender>
+	</springProfile>
+	<springProfile name="local,dev">
+		<root>
+			<appender-ref ref="Async-accessLogFileAppender4Dev" />
+		</root>
+	</springProfile>
+
+	<springProfile name="test,prod,stage">
+		<root>
+			<appender-ref
+				ref="Async-accessLogFileAppender4TestAndProd" />
+		</root>
+	</springProfile>
+</configuration>

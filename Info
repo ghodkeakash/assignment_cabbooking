@@ -1,0 +1,36 @@
+##create schema
+create schema cab_booking;
+
+##Calling Oauth2 Url to generate access token
+
+POST /oauth/token HTTP/1.1
+Host: localhost:8083
+Accept: application/json
+Content-Type: application/x-www-form-urlencoded
+Authorization: Basic dW5pZmllZC1jbGllbnQtc3RhZ2U6NTViZjA3OTEtZHNhNC00YmI5LWFkOGMtN2ViMWRhMTgwMWY5
+grant_type=password&username=unifiedstageuser&password=%242a%2410%24Fh25wxgmbPok001n4WTEru0UMsk%2F9OnhlSwY4sq1.r9Qvqj29iz3K 
+
+##Calling Apis through post man
+
+POST /api/v1/cabbooking/user HTTP/1.1
+Host: localhost:8083
+Authorization: Bearer e410c983-9edb-47ff-ac8c-4f4f34b6fc70
+##In body text add following to get User booking Info
+{
+bookingHistory(userMobileNumber:"9922282227"){
+userMobileNumber
+driverMobileNumber
+startPoint
+dropPoint
+}
+}
+## In Body text add following info to get cab near you
+{
+
+driverDetails(userMobileNumber:"9922282227", lattitude:"13.035781", longitude:"77.597008"){
+mobileNumber
+carManufacture
+name
+carName
+}
+}
